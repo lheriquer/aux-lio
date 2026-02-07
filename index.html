@@ -28,21 +28,129 @@ input::placeholder{color:#666}
 button{width:100%;padding:14px;margin-top:15px;background:red;border:none;border-radius:14px;font-size:15px;font-weight:bold;color:#fff;cursor:pointer;transition:all .3s}
 button:hover{background:#ff1a1a;transform:translateY(-2px);box-shadow:0 5px 15px rgba(255,0,0,.4)}
 button:active{transform:translateY(0)}
-.option{background:#141414;padding:12px;border-radius:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all .3s}
-.option:hover{background:#1a1a1a;transform:translateX(3px)}
-.option span{font-size:14px;font-weight:500}
-.toggle{width:46px;height:24px;background:#444;border-radius:20px;position:relative;transition:background .3s;flex-shrink:0}
-.toggle::before{content:"";width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:.3s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 2px 5px rgba(0,0,0,.3)}
-.toggle.active{background:red}
-.toggle.active::before{left:24px}
-.status-bar{margin-top:15px;padding:10px;background:#111;border-radius:10px;font-size:13px;text-align:center;color:#aaa}
-.status-indicator{display:inline-block;width:8px;height:8px;border-radius:50%;background:#0f0;margin-right:6px;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.2)}}
+
+/* OPÇÕES MELHORADAS - MUITO CAPA */
+.option{
+  background:linear-gradient(145deg,#1f1f1f 0%,#0a0a0a 100%);
+  padding:16px 18px;
+  border-radius:18px;
+  margin-bottom:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  transition:all .5s cubic-bezier(0.34,1.56,0.64,1);
+  border:2px solid #1a1a1a;
+  box-shadow:0 8px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05);
+  position:relative;
+  overflow:hidden;
+}
+.option::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,0,0,.1),transparent);
+  transition:.6s;
+}
+.option:hover::before{left:100%}
+.option:hover{
+  background:linear-gradient(145deg,#2a0000 0%,#150000 100%);
+  transform:translateX(8px) scale(1.03);
+  border-color:#ff0000;
+  box-shadow:0 12px 30px rgba(255,0,0,.3),0 0 40px rgba(255,0,0,.2),inset 0 1px 0 rgba(255,0,0,.2);
+}
+.option:active{transform:translateX(5px) scale(1.01)}
+.option span{
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.5px;
+  text-shadow:0 2px 8px rgba(0,0,0,.8);
+  transition:.3s;
+}
+.option:hover span{color:#fff;text-shadow:0 0 10px rgba(255,0,0,.5)}
+.option.active{
+  border-color:#ff0000;
+  background:linear-gradient(145deg,#330000 0%,#1a0000 100%);
+  box-shadow:0 0 30px rgba(255,0,0,.5),0 8px 20px rgba(0,0,0,.4),inset 0 2px 10px rgba(255,0,0,.2);
+}
+
+/* TOGGLE MUITO MELHORADO */
+.toggle{
+  width:56px;
+  height:30px;
+  background:linear-gradient(145deg,#2a2a2a,#1a1a1a);
+  border-radius:30px;
+  position:relative;
+  transition:all .5s;
+  flex-shrink:0;
+  border:2px solid #333;
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.6),0 2px 4px rgba(0,0,0,.3);
+}
+.toggle::before{
+  content:"";
+  width:24px;
+  height:24px;
+  background:linear-gradient(145deg,#f5f5f5,#ddd);
+  border-radius:50%;
+  position:absolute;
+  top:1px;
+  left:2px;
+  transition:.5s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow:0 4px 12px rgba(0,0,0,.5),inset 0 -2px 4px rgba(0,0,0,.1);
+}
+.toggle.active{
+  background:linear-gradient(145deg,#ff0000,#aa0000);
+  border-color:#ff3333;
+  box-shadow:0 0 20px rgba(255,0,0,.6),inset 0 3px 6px rgba(0,0,0,.3),0 4px 8px rgba(255,0,0,.4);
+}
+.toggle.active::before{
+  left:28px;
+  background:linear-gradient(145deg,#fff,#f0f0f0);
+  box-shadow:0 4px 16px rgba(255,0,0,.8),inset 0 -2px 4px rgba(0,0,0,.1);
+}
+
+.status-bar{margin-top:15px;padding:12px;background:linear-gradient(145deg,#1a1a1a,#0d0d0d);border-radius:12px;font-size:13px;text-align:center;color:#aaa;border:1px solid #222;box-shadow:inset 0 2px 4px rgba(0,0,0,.4)}
+.status-indicator{display:inline-block;width:9px;height:9px;border-radius:50%;background:#0f0;margin-right:8px;animation:pulse 2s infinite;box-shadow:0 0 10px #0f0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
+
 button.secondary{background:#333;margin-top:10px}
 button.secondary:hover{background:#444}
+
+/* BOTÃO RESETAR ACESSO */
+button.reset{
+  background:linear-gradient(135deg,#ff6600,#cc4400)!important;
+  margin-top:15px;
+  position:relative;
+  overflow:hidden;
+  border:2px solid #ff8833;
+  box-shadow:0 4px 15px rgba(255,102,0,.4);
+}
+button.reset:hover{
+  background:linear-gradient(135deg,#ff8833,#ff6600)!important;
+  transform:translateY(-3px);
+  box-shadow:0 6px 20px rgba(255,102,0,.6);
+}
+button.reset::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:0;
+  height:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.3);
+  transform:translate(-50%,-50%);
+  transition:.5s;
+}
+button.reset:hover::before{width:300px;height:300px}
+
 .badge{display:inline-block;color:#fff;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:bold;margin-left:8px}
 .badge.owner{background:gold;color:#000}
 .badge.admin{background:red}
+.badge.user{background:#666}
 .info-text{background:#111;padding:10px;border-radius:8px;font-size:12px;color:#aaa;margin-top:10px;text-align:center}
 .user-item{background:#141414;padding:12px;border-radius:12px;margin-bottom:10px}
 .user-email{font-size:14px;font-weight:500;margin-bottom:5px;color:#fff;word-break:break-all}
@@ -52,31 +160,93 @@ button.secondary:hover{background:#444}
 .pending-count{background:red;color:#fff;padding:2px 6px;border-radius:10px;font-size:11px;margin-left:5px}
 .approved-tag{display:inline-block;background:#0a0;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:5px}
 .expired-tag{display:inline-block;background:#666;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:5px}
+
+/* CÓDIGO DE VERIFICAÇÃO */
+.code-inputs{display:flex;gap:8px;justify-content:center;margin:20px 0}
+.code-input{width:45px;height:55px;text-align:center;font-size:24px;font-weight:bold;background:#1b1b1b;border:2px solid #333;border-radius:10px;color:#fff;transition:.3s}
+.code-input:focus{border-color:#ff0000;background:#252525;box-shadow:0 0 15px rgba(255,0,0,.4);outline:none}
+.warning-box{background:#330000;border:2px solid #ff0000;border-radius:12px;padding:15px;margin:15px 0;font-size:13px;line-height:1.6}
+.warning-box strong{color:#ff6666;display:block;margin-bottom:8px;font-size:14px}
+.timer{color:#ff6666;font-weight:bold;font-size:16px;margin-top:10px;text-align:center}
 </style>
 </head>
 <body>
 
+<!-- TELA DE LOGIN -->
 <div class="card" id="login">
   <div class="avatar"><img src="avatar.jpg" alt="Avatar"></div>
   <h3>Login</h3>
   <input type="email" id="emailInput" placeholder="Digite seu email">
   <button onclick="login()">Entrar</button>
-  <button class="secondary" onclick="instalar()">Instalar App</button>
+  <button class="secondary" id="btnInstall" onclick="instalar()">📲 Instalar App</button>
   <div class="info-text">Digite seu email para acessar</div>
 </div>
 
+<!-- TELA DE VERIFICAÇÃO DE CÓDIGO -->
+<div class="card hidden" id="verify">
+  <div class="avatar"><img src="avatar.jpg" alt="Avatar"></div>
+  <h3>Verificação de Dispositivo</h3>
+  
+  <div class="warning-box">
+    <strong>⚠️ Novo dispositivo detectado!</strong>
+    Verifique seu email (incluindo spam) e digite o código de 6 dígitos abaixo.
+  </div>
+  
+  <div class="code-inputs">
+    <input type="text" maxlength="1" class="code-input" id="c1" oninput="moveNext(this,1)" onkeydown="movePrev(event,this,1)">
+    <input type="text" maxlength="1" class="code-input" id="c2" oninput="moveNext(this,2)" onkeydown="movePrev(event,this,2)">
+    <input type="text" maxlength="1" class="code-input" id="c3" oninput="moveNext(this,3)" onkeydown="movePrev(event,this,3)">
+    <input type="text" maxlength="1" class="code-input" id="c4" oninput="moveNext(this,4)" onkeydown="movePrev(event,this,4)">
+    <input type="text" maxlength="1" class="code-input" id="c5" oninput="moveNext(this,5)" onkeydown="movePrev(event,this,5)">
+    <input type="text" maxlength="1" class="code-input" id="c6" oninput="moveNext(this,6)" onkeydown="movePrev(event,this,6)">
+  </div>
+  
+  <div class="timer">Expira em: <span id="timeLeft">15:00</span></div>
+  
+  <button onclick="verificarCodigo()">Verificar Código</button>
+  <button class="secondary" onclick="voltarLogin()">Voltar</button>
+  
+  <div class="info-text" style="margin-top:15px;font-size:11px">
+    O código expira em 15 minutos. Não compartilhe com ninguém!
+  </div>
+</div>
+
+<!-- PAINEL PRINCIPAL -->
 <div class="card hidden" id="panel">
   <div class="avatar" onclick="checkOwner()"><img src="avatar.jpg" alt="Avatar"></div>
   <h3 id="panelTitle">Painel de Controle</h3>
-  <div class="option" onclick="toggle(this,'aim')"><span>Aim Assist</span><div class="toggle"></div></div>
-  <div class="option" onclick="toggle(this,'sens')"><span>Sensibilidade</span><div class="toggle"></div></div>
-  <div class="option" onclick="toggle(this,'rec')"><span>Controle de Recuo</span><div class="toggle"></div></div>
-  <div class="status-bar"><span class="status-indicator"></span><span id="status">Sistema Pronto</span></div>
-  <button onclick="aplicar()">Aplicar Configurações</button>
-  <button onclick="abrirFF()">Abrir Free Fire</button>
-  <button class="secondary" onclick="sair()">Sair</button>
+  
+  <div class="option" onclick="toggle(this,'aim')">
+    <span>🎯 Aim Assist</span>
+    <div class="toggle"></div>
+  </div>
+  
+  <div class="option" onclick="toggle(this,'sens')">
+    <span>⚡ Sensibilidade++</span>
+    <div class="toggle"></div>
+  </div>
+  
+  <div class="option" onclick="toggle(this,'rec')">
+    <span>🎮 Controle de Recuo</span>
+    <div class="toggle"></div>
+  </div>
+  
+  <div class="status-bar">
+    <span class="status-indicator"></span>
+    <span id="status">Sistema Pronto</span>
+  </div>
+  
+  <button onclick="aplicar()">✨ Aplicar Configurações</button>
+  <button onclick="abrirFF()">🔥 Abrir Free Fire</button>
+  
+  <!-- BOTÃO RESETAR - SÓ NO APP -->
+  <button class="reset hidden" id="btnReset" onclick="resetarAcesso()">🔄 Resetar Acesso</button>
+  
+  <!-- BOTÃO SAIR - SÓ NO NAVEGADOR -->
+  <button class="secondary hidden" id="btnSair" onclick="sair()">🚪 Sair</button>
 </div>
 
+<!-- PAINEL DO DONO -->
 <div class="card hidden" id="owner">
   <div class="avatar"><img src="avatar.jpg" alt="Avatar"></div>
   <h3>Gerenciar Acessos <span class="badge owner">DONO</span></h3>
@@ -90,53 +260,400 @@ button.secondary:hover{background:#444}
 </div>
 
 <script>
-const CFG={owner:'lheriquer21@gmail.com',clicks:0,user:null,s:{aim:0,sens:0,rec:0}};
+const CFG={owner:'lheriquer21@gmail.com',clicks:0,user:null,s:{aim:0,sens:0,rec:0},deviceId:null,verifyEmail:null,verifyCode:null,codeExpiry:null,timerInterval:null};
+
+function getDeviceId(){
+  let id=localStorage.getItem('deviceId');
+  if(!id){
+    id='dev_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);
+    localStorage.setItem('deviceId',id);
+  }
+  return id;
+}
+
+function isInstalledApp(){
+  return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+}
+
+function updateButtons(){
+  const installed=isInstalledApp();
+  const btnInstall=document.getElementById('btnInstall');
+  const btnReset=document.getElementById('btnReset');
+  const btnSair=document.getElementById('btnSair');
+  
+  if(installed){
+    if(btnInstall)btnInstall.classList.add('hidden');
+    if(btnReset)btnReset.classList.remove('hidden');
+    if(btnSair)btnSair.classList.add('hidden');
+  }else{
+    if(btnInstall)btnInstall.classList.remove('hidden');
+    if(btnReset)btnReset.classList.add('hidden');
+    if(btnSair)btnSair.classList.remove('hidden');
+  }
+}
+
+function gerarCodigo(){
+  return Math.floor(100000+Math.random()*900000).toString();
+}
+
 function login(){
   let e=document.getElementById('emailInput').value.trim().toLowerCase();
-  if(!e){alert('Digite seu email!');return}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){alert('Email inválido!');return}
-  if(e===CFG.owner){
-    CFG.user={email:e,role:'owner',at:Date.now()};
-    save();alert('Bem-vindo DONO! 👑');show();return
+  if(!e){
+    document.getElementById('emailInput').style.border='2px solid red';
+    setTimeout(()=>document.getElementById('emailInput').style.border='',2000);
+    return;
   }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
+    document.getElementById('emailInput').style.border='2px solid red';
+    let msg=document.createElement('div');
+    msg.className='info-text';
+    msg.style.background='#a00';
+    msg.textContent='Email inválido!';
+    document.getElementById('login').appendChild(msg);
+    setTimeout(()=>{msg.remove();document.getElementById('emailInput').style.border=''},2000);
+    return;
+  }
+  
+  if(e===CFG.owner){
+    CFG.user={email:e,role:'owner',at:Date.now(),deviceId:getDeviceId()};
+    save();show();return;
+  }
+  
   let u=getU().find(x=>x.email===e);
   if(u){
-    if(u.exp&&new Date(u.exp)<new Date()){alert('Acesso expirado!');return}
-    CFG.user=u;save();show()
+    if(u.exp&&new Date(u.exp)<new Date()){
+      document.getElementById('emailInput').value='';
+      let msg=document.createElement('div');
+      msg.className='info-text';
+      msg.style.background='#a00';
+      msg.textContent='Acesso expirado! ⏰';
+      document.getElementById('login').appendChild(msg);
+      setTimeout(()=>msg.remove(),3000);
+      return;
+    }
+    
+    const currentDevice=getDeviceId();
+    if(u.deviceId&&u.deviceId!==currentDevice){
+      mostrarVerificacao(e);
+      return;
+    }
+    
+    u.deviceId=currentDevice;
+    CFG.user=u;
+    save();
+    saveUserDevice(e,currentDevice);
+    show();
   }else{
     let p=getP();
-    if(p.find(x=>x.email===e)){alert('Solicitação pendente!');return}
+    if(p.find(x=>x.email===e)){
+      document.getElementById('emailInput').value='';
+      let msg=document.createElement('div');
+      msg.className='info-text';
+      msg.textContent='Solicitação já enviada! Aguarde aprovação ⏳';
+      document.getElementById('login').appendChild(msg);
+      setTimeout(()=>msg.remove(),3000);
+      return;
+    }
     p.push({email:e,at:Date.now()});
     localStorage.setItem('p',JSON.stringify(p));
-    alert('Solicitação enviada! ✅');
-    document.getElementById('emailInput').value=''
+    document.getElementById('emailInput').value='';
+    let msg=document.createElement('div');
+    msg.className='info-text';
+    msg.style.background='#0a0';
+    msg.textContent='Solicitação enviada com sucesso! ✅';
+    document.getElementById('login').appendChild(msg);
+    setTimeout(()=>msg.remove(),3000);
   }
 }
+
+function mostrarVerificacao(email){
+  CFG.verifyEmail=email;
+  CFG.verifyCode=gerarCodigo();
+  CFG.codeExpiry=Date.now()+(15*60*1000);
+  
+  console.log('CÓDIGO:',CFG.verifyCode,'Email:',email);
+  
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('verify').classList.remove('hidden');
+  document.getElementById('c1').focus();
+  startTimer();
+  
+  let msg=document.createElement('div');
+  msg.className='info-text';
+  msg.style.background='#0a0';
+  msg.style.position='fixed';
+  msg.style.top='20px';
+  msg.style.left='50%';
+  msg.style.transform='translateX(-50%)';
+  msg.style.zIndex='9999';
+  msg.style.maxWidth='90%';
+  msg.textContent=`📧 Código: ${CFG.verifyCode}`;
+  document.body.appendChild(msg);
+  setTimeout(()=>msg.remove(),8000);
+}
+
+function startTimer(){
+  if(CFG.timerInterval)clearInterval(CFG.timerInterval);
+  CFG.timerInterval=setInterval(()=>{
+    const remaining=CFG.codeExpiry-Date.now();
+    if(remaining<=0){
+      clearInterval(CFG.timerInterval);
+      document.getElementById('timeLeft').textContent='EXPIRADO';
+      document.getElementById('timeLeft').style.color='#ff0000';
+      return;
+    }
+    const mins=Math.floor(remaining/60000);
+    const secs=Math.floor((remaining%60000)/1000);
+    document.getElementById('timeLeft').textContent=`${mins}:${secs.toString().padStart(2,'0')}`;
+  },1000);
+}
+
+function moveNext(el,num){
+  el.value=el.value.replace(/[^0-9]/g,'');
+  if(el.value.length===1&&num<6){
+    document.getElementById('c'+(num+1)).focus();
+  }
+  if(num===6&&el.value.length===1){
+    setTimeout(verificarCodigo,300);
+  }
+}
+
+function movePrev(e,el,num){
+  if(e.key==='Backspace'&&el.value.length===0&&num>1){
+    document.getElementById('c'+(num-1)).focus();
+  }
+}
+
+function verificarCodigo(){
+  if(Date.now()>CFG.codeExpiry){
+    let msg=document.createElement('div');
+    msg.className='info-text';
+    msg.style.background='#a00';
+    msg.textContent='Código expirado! Tente novamente.';
+    document.getElementById('verify').appendChild(msg);
+    setTimeout(()=>{msg.remove();voltarLogin()},2000);
+    return;
+  }
+  
+  const codigo=
+    document.getElementById('c1').value+
+    document.getElementById('c2').value+
+    document.getElementById('c3').value+
+    document.getElementById('c4').value+
+    document.getElementById('c5').value+
+    document.getElementById('c6').value;
+  
+  if(codigo.length!==6){
+    let msg=document.createElement('div');
+    msg.className='info-text';
+    msg.style.background='#a00';
+    msg.textContent='Digite os 6 dígitos!';
+    document.getElementById('verify').appendChild(msg);
+    setTimeout(()=>msg.remove(),2000);
+    return;
+  }
+  
+  if(codigo===CFG.verifyCode){
+    clearInterval(CFG.timerInterval);
+    const newDevice=getDeviceId();
+    let u=getU().find(x=>x.email===CFG.verifyEmail);
+    u.deviceId=newDevice;
+    CFG.user=u;
+    save();
+    saveUserDevice(CFG.verifyEmail,newDevice);
+    CFG.verifyEmail=null;
+    CFG.verifyCode=null;
+    CFG.codeExpiry=null;
+    document.getElementById('verify').classList.add('hidden');
+    show();
+  }else{
+    let msg=document.createElement('div');
+    msg.className='info-text';
+    msg.style.background='#a00';
+    msg.textContent='❌ Código incorreto!';
+    document.getElementById('verify').appendChild(msg);
+    setTimeout(()=>msg.remove(),2000);
+    for(let i=1;i<=6;i++){
+      document.getElementById('c'+i).value='';
+    }
+    document.getElementById('c1').focus();
+  }
+}
+
+function voltarLogin(){
+  if(CFG.timerInterval)clearInterval(CFG.timerInterval);
+  CFG.verifyEmail=null;
+  CFG.verifyCode=null;
+  CFG.codeExpiry=null;
+  document.getElementById('verify').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+  for(let i=1;i<=6;i++){
+    document.getElementById('c'+i).value='';
+  }
+}
+
+function resetarAcesso(){
+  if(!CFG.user)return;
+  const lastReset=localStorage.getItem('lastReset_'+CFG.user.email);
+  if(lastReset){
+    const diff=Date.now()-parseInt(lastReset);
+    const hours=diff/(1000*60*60);
+    if(hours<24){
+      const remaining=Math.ceil(24-hours);
+      let msg=document.createElement('div');
+      msg.className='warning-box';
+      msg.innerHTML=`<strong>⏰ Aguarde ${remaining}h</strong>Você pode resetar apenas 1 vez por dia.`;
+      document.getElementById('panel').insertBefore(msg,document.getElementById('panel').firstChild);
+      setTimeout(()=>msg.remove(),4000);
+      return;
+    }
+  }
+  
+  const box=document.createElement('div');
+  box.className='warning-box';
+  box.innerHTML=`
+    <strong>⚠️ Importante:</strong>
+    • Você pode resetar seu acesso apenas 1 vez por dia<br>
+    • O código expira em 15 minutos<br>
+    • Após o reset, você poderá fazer login em um novo dispositivo
+  `;
+  document.getElementById('panel').insertBefore(box,document.getElementById('panel').firstChild);
+  
+  const btnConfirm=document.createElement('button');
+  btnConfirm.textContent='✅ Confirmar Reset';
+  btnConfirm.style.marginTop='10px';
+  btnConfirm.onclick=()=>{
+    localStorage.setItem('lastReset_'+CFG.user.email,Date.now().toString());
+    let users=getU();
+    let u=users.find(x=>x.email===CFG.user.email);
+    if(u){
+      delete u.deviceId;
+      localStorage.setItem('u',JSON.stringify(users));
+    }
+    box.remove();
+    btnConfirm.remove();
+    let msg=document.createElement('div');
+    msg.className='info-text';
+    msg.style.background='#0a0';
+    msg.textContent='✅ Acesso resetado! Agora você pode fazer login em outro dispositivo.';
+    document.getElementById('panel').insertBefore(msg,document.getElementById('panel').firstChild);
+    setTimeout(()=>msg.remove(),4000);
+  };
+  document.getElementById('panel').insertBefore(btnConfirm,box.nextSibling);
+}
+
+function saveUserDevice(email,deviceId){
+  let users=getU();
+  let u=users.find(x=>x.email===email);
+  if(u){
+    u.deviceId=deviceId;
+    localStorage.setItem('u',JSON.stringify(users));
+  }
+}
+
 function show(){
   document.getElementById('login').classList.add('hidden');
+  document.getElementById('verify').classList.add('hidden');
   document.getElementById('panel').classList.remove('hidden');
-  let t='Painel';
+  let t='Painel de Controle';
   if(CFG.user.role==='owner')t+=' <span class="badge owner">DONO</span>';
   else if(CFG.user.role==='admin')t+=' <span class="badge admin">ADMIN</span>';
-  document.getElementById('panelTitle').innerHTML=t
+  document.getElementById('panelTitle').innerHTML=t;
+  updateButtons();
 }
+
 function checkOwner(){
   if(CFG.user&&CFG.user.role==='owner'){
     CFG.clicks++;
-    if(CFG.clicks>=5){CFG.clicks=0;showOwn()}
+    if(CFG.clicks>=5){
+      CFG.clicks=0;
+      showOwn();
+    }else{
+      document.getElementById('status').textContent=(5-CFG.clicks)+' cliques restantes';
+    }
   }
 }
+
+function toggle(el,k){
+  const t=el.querySelector('.toggle');
+  t.classList.toggle('active');
+  el.classList.toggle('active');
+  CFG.s[k]=t.classList.contains('active');
+  const names={aim:'Aim Assist',sens:'Sensibilidade',rec:'Controle de Recuo'};
+  document.getElementById('status').textContent=names[k]+' '+(CFG.s[k]?'ATIVADO ✅':'DESATIVADO ⭕');
+}
+
+function aplicar(){
+  if(!CFG.s.aim&&!CFG.s.sens&&!CFG.s.rec){
+    document.getElementById('status').textContent='⚠️ Ative pelo menos uma opção!';
+    setTimeout(()=>document.getElementById('status').textContent='Sistema Pronto',2500);
+    return;
+  }
+  document.getElementById('status').textContent='⚙️ Aplicando...';
+  setTimeout(()=>{
+    document.getElementById('status').textContent='✅ Configurações aplicadas!';
+    if(navigator.vibrate)navigator.vibrate([100,50,100,50,100]);
+  },1500);
+}
+
+function abrirFF(){
+  let p='com.dts.freefireth';
+  document.getElementById('status').textContent='🔥 Abrindo Free Fire...';
+  window.location.href=`intent://${p}#Intent;scheme=android-app;package=${p};S.browser_fallback_url=about:blank;end`;
+  setTimeout(()=>{
+    document.getElementById('status').textContent='🎮 Free Fire aberto!';
+    if(navigator.vibrate)navigator.vibrate([100,50,100]);
+  },1000);
+}
+
+function instalar(){
+  if(isInstalledApp()){
+    document.getElementById('status').textContent='✅ App já instalado!';
+    return;
+  }
+  let msg='';
+  if(/iPad|iPhone|iPod/.test(navigator.userAgent)){
+    msg='📱 iOS: Compartilhar (↑) > Adicionar à Tela Inicial';
+  }else if(/Android/.test(navigator.userAgent)){
+    msg='📱 Android: Menu (⋮) > Instalar app';
+  }else{
+    msg='💻 Desktop: Ícone (+) na barra de endereço';
+  }
+  let el=document.createElement('div');
+  el.className='info-text';
+  el.style.background='#1a1a1a';
+  el.textContent=msg;
+  document.getElementById('login').appendChild(el);
+  setTimeout(()=>el.remove(),6000);
+}
+
+function sair(){
+  localStorage.removeItem('cu');
+  CFG.user=null;
+  CFG.s={aim:0,sens:0,rec:0};
+  document.getElementById('panel').classList.add('hidden');
+  document.getElementById('owner').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+  document.getElementById('emailInput').value='';
+  document.getElementById('status').textContent='Sistema Pronto';
+  updateButtons();
+}
+
 function showOwn(){
   document.getElementById('panel').classList.add('hidden');
   document.getElementById('owner').classList.remove('hidden');
-  showPend()
+  showPend();
 }
+
 function showPend(){
   let p=getP(),c=p.length;
   document.getElementById('pCount').textContent=c;
   document.getElementById('pList').classList.remove('hidden');
   document.getElementById('aList').classList.add('hidden');
-  if(c===0){document.getElementById('pList').innerHTML='<div class="info-text">Nenhuma solicitação</div>';return}
+  if(c===0){
+    document.getElementById('pList').innerHTML='<div class="info-text">Nenhuma solicitação</div>';
+    return;
+  }
   let h='';
   p.forEach((u,i)=>{
     let d=new Date(u.at).toLocaleString('pt-BR');
@@ -149,100 +666,99 @@ function showPend(){
         <button onclick="aprov('${u.email}',${i})">Aprovar</button>
         <button class="secondary" onclick="reject('${u.email}')">Rejeitar</button>
       </div>
-    </div>`
+    </div>`;
   });
-  document.getElementById('pList').innerHTML=h
+  document.getElementById('pList').innerHTML=h;
 }
+
 function showAprov(){
   let u=getU();
   document.getElementById('pList').classList.add('hidden');
   document.getElementById('aList').classList.remove('hidden');
-  if(u.length===0){document.getElementById('aList').innerHTML='<div class="info-text">Nenhum aprovado</div>';return}
+  if(u.length===0){
+    document.getElementById('aList').innerHTML='<div class="info-text">Nenhum aprovado</div>';
+    return;
+  }
   let h='';
   u.forEach(x=>{
-    let d=new Date(x.at).toLocaleString('pt-BR'),e='';
+    let d=new Date(x.at).toLocaleString('pt-BR');
+    let e='';
     if(x.exp){
       let de=new Date(x.exp);
-      e=de<new Date()?'<span class="expired-tag">EXPIRADO</span>':'<span class="approved-tag">'+de.toLocaleDateString('pt-BR')+'</span>'
-    }else e='<span class="approved-tag">PERMANENTE</span>';
+      e=de<new Date()?'<span class="expired-tag">EXPIRADO</span>':'<span class="approved-tag">'+de.toLocaleDateString('pt-BR')+'</span>';
+    }else{
+      e='<span class="approved-tag">PERMANENTE</span>';
+    }
     let r=x.role==='admin'?'Admin':'Usuário';
+    let dev=x.deviceId?'<div class="user-info">🔒 '+x.deviceId.substr(0,20)+'...</div>':'';
     h+=`<div class="user-item">
       <div class="user-email">${x.email} <span class="badge ${x.role}">${r}</span></div>
       <div class="user-info">Em: ${d} ${e}</div>
-      <div class="user-actions"><button class="secondary" onclick="rem('${x.email}')">Remover</button></div>
-    </div>`
+      ${dev}
+      <div class="user-actions">
+        <button class="secondary" onclick="rem('${x.email}')">Remover</button>
+      </div>
+    </div>`;
   });
-  document.getElementById('aList').innerHTML=h
+  document.getElementById('aList').innerHTML=h;
 }
+
 function aprov(e,i){
-  let r=document.getElementById('r'+i).value,ds=parseInt(document.getElementById('d'+i).value);
-  let u=getU(),exp=ds===99999?null:new Date(Date.now()+ds*864e5).toISOString();
-  u.push({email:e,role:r,at:new Date().toISOString(),exp:exp});
+  let r=document.getElementById('r'+i).value;
+  let ds=parseInt(document.getElementById('d'+i).value);
+  let u=getU();
+  let exp=ds===99999?null:new Date(Date.now()+ds*864e5).toISOString();
+  u.push({email:e,role:r,at:new Date().toISOString(),exp:exp,deviceId:null});
   localStorage.setItem('u',JSON.stringify(u));
   let p=getP().filter(x=>x.email!==e);
   localStorage.setItem('p',JSON.stringify(p));
-  alert(`✅ ${e} aprovado!`);showPend()
+  showPend();
 }
+
 function reject(e){
-  if(!confirm('Rejeitar '+e+'?'))return;
   let p=getP().filter(x=>x.email!==e);
   localStorage.setItem('p',JSON.stringify(p));
-  alert('Rejeitado!');showPend()
+  showPend();
 }
+
 function rem(e){
-  if(!confirm('Remover '+e+'?'))return;
   let u=getU().filter(x=>x.email!==e);
   localStorage.setItem('u',JSON.stringify(u));
-  alert('Removido!');showAprov()
+  showAprov();
 }
+
 function voltar(){
   document.getElementById('owner').classList.add('hidden');
-  document.getElementById('panel').classList.remove('hidden')
+  document.getElementById('panel').classList.remove('hidden');
 }
-function toggle(el,k){
-  let t=el.querySelector('.toggle');
-  t.classList.toggle('active');
-  CFG.s[k]=t.classList.contains('active');
-  let n={aim:'Aim Assist',sens:'Sensibilidade',rec:'Controle de Recuo'};
-  document.getElementById('status').textContent=n[k]+' '+(CFG.s[k]?'ON ✅':'OFF ❌')
-}
-function aplicar(){
-  if(!CFG.s.aim&&!CFG.s.sens&&!CFG.s.rec){alert('Ative algo!');return}
-  document.getElementById('status').textContent='Aplicando...';
-  setTimeout(()=>{alert('✅ Aplicado!');document.getElementById('status').textContent='Aplicado!';if(navigator.vibrate)navigator.vibrate(200)},1500)
-}
-function abrirFF(){
-  let p='com.dts.freefireth';
-  window.location.href=`intent://${p}#Intent;scheme=android-app;package=${p};end`;
-  setTimeout(()=>window.open(`https://play.google.com/store/apps/details?id=${p}`,'_blank'),2000)
-}
-function instalar(){
-  if(window.matchMedia('(display-mode: standalone)').matches){alert('Já instalado!');return}
-  if(/iPad|iPhone|iPod/.test(navigator.userAgent))alert('iOS: Compartilhar > Adicionar à Tela');
-  else if(/Android/.test(navigator.userAgent))alert('Android: Menu > Instalar app');
-  else alert('Clique no ícone de instalação')
-}
-function sair(){
-  if(confirm('Sair?')){
-    localStorage.removeItem('cu');CFG.user=null;
-    document.getElementById('panel').classList.add('hidden');
-    document.getElementById('owner').classList.add('hidden');
-    document.getElementById('login').classList.remove('hidden');
-    document.getElementById('emailInput').value=''
-  }
-}
+
 function getU(){return JSON.parse(localStorage.getItem('u')||'[]')}
 function getP(){return JSON.parse(localStorage.getItem('p')||'[]')}
 function save(){localStorage.setItem('cu',JSON.stringify(CFG.user))}
+
 window.onload=()=>{
+  CFG.deviceId=getDeviceId();
+  updateButtons();
   let s=localStorage.getItem('cu');
   if(s){
     CFG.user=JSON.parse(s);
-    if(CFG.user.exp&&new Date(CFG.user.exp)<new Date()){alert('Expirado!');sair();return}
-    show()
+    if(CFG.user.exp&&new Date(CFG.user.exp)<new Date()){
+      localStorage.removeItem('cu');
+      CFG.user=null;
+      return;
+    }
+    if(CFG.user.deviceId&&CFG.user.deviceId!==CFG.deviceId){
+      localStorage.removeItem('cu');
+      CFG.user=null;
+      return;
+    }
+    show();
   }
 };
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+}
 </script>
 </body>
 </html>
