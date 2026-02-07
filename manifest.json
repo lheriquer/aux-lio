@@ -1,0 +1,24 @@
+{
+  "name": "PicPay",
+  "short_name": "PicPay",
+  "description": "PicPay - Pagamentos e Transferencias",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#21C25E",
+  "theme_color": "#21C25E",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "picpay-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "picpay-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

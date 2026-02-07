@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#21C25E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PicPay">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="picpay-icon-512.png">
+<title>Painel Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:radial-gradient(circle at top,#2b0000,#000);min-height:100vh;display:flex;align-items:center;justify-content:center;color:#fff;padding:20px}
+.hidden{display:none!important}
+.card{width:100%;max-width:380px;background:#0f0f0f;border-radius:20px;padding:20px;box-shadow:0 0 30px rgba(255,0,0,.4);animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.avatar{display:flex;justify-content:center;margin-bottom:15px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.avatar img{width:85px;height:85px;border-radius:50%;border:3px solid red;box-shadow:0 0 20px red;object-fit:cover;transition:transform .3s}
+.avatar img:hover{transform:scale(1.05)}
+h3{text-align:center;margin-bottom:15px;font-weight:700}
+input,select{width:100%;padding:12px;border:none;border-radius:12px;margin-top:10px;background:#1b1b1b;color:#fff;font-size:15px;outline:none;transition:all .3s}
+input:focus,select:focus{background:#252525;box-shadow:0 0 10px rgba(255,0,0,.3)}
+input::placeholder{color:#666}
+button{width:100%;padding:14px;margin-top:15px;background:red;border:none;border-radius:14px;font-size:15px;font-weight:bold;color:#fff;cursor:pointer;transition:all .3s}
+button:hover{background:#ff1a1a;transform:translateY(-2px);box-shadow:0 5px 15px rgba(255,0,0,.4)}
+button:active{transform:translateY(0)}
+.option{background:#141414;padding:12px;border-radius:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all .3s}
+.option:hover{background:#1a1a1a;transform:translateX(3px)}
+.option span{font-size:14px;font-weight:500}
+.toggle{width:46px;height:24px;background:#444;border-radius:20px;position:relative;transition:background .3s;flex-shrink:0}
+.toggle::before{content:"";width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:.3s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 2px 5px rgba(0,0,0,.3)}
+.toggle.active{background:red}
+.toggle.active::before{left:24px}
+.status-bar{margin-top:15px;padding:10px;background:#111;border-radius:10px;font-size:13px;text-align:center;color:#aaa}
+.status-indicator{display:inline-block;width:8px;height:8px;border-radius:50%;background:#0f0;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.2)}}
+button.secondary{background:#333;margin-top:10px}
+button.secondary:hover{background:#444}
+.badge{display:inline-block;color:#fff;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:bold;margin-left:8px}
+.badge.owner{background:gold;color:#000}
+.badge.admin{background:red}
+.info-text{background:#111;padding:10px;border-radius:8px;font-size:12px;color:#aaa;margin-top:10px;text-align:center}
+.user-item{background:#141414;padding:12px;border-radius:12px;margin-bottom:10px}
+.user-email{font-size:14px;font-weight:500;margin-bottom:5px;color:#fff;word-break:break-all}
+.user-info{font-size:12px;color:#aaa;margin-bottom:8px}
+.user-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.user-actions button{padding:8px;margin:0;font-size:12px}
+.pending-count{background:red;color:#fff;padding:2px 6px;border-radius:10px;font-size:11px;margin-left:5px}
+.approved-tag{display:inline-block;background:#0a0;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:5px}
+.expired-tag{display:inline-block;background:#666;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:5px}
+</style>
+</head>
+<body>
+
+<div class="card" id="login">
+  <div class="avatar"><img src="avatar.jpg" alt="Avatar"></div>
+  <h3>Login</h3>
+  <input type="email" id="emailInput" placeholder="Digite seu email">
+  <button onclick="login()">Entrar</button>
+  <button class="secondary" onclick="instalar()">Instalar App</button>
+  <div class="info-text">Digite seu email para acessar</div>
+</div>
+
+<div class="card hidden" id="panel">
+  <div class="avatar" onclick="checkOwner()"><img src="avatar.jpg" alt="Avatar"></div>
+  <h3 id="panelTitle">Painel de Controle</h3>
+  <div class="option" onclick="toggle(this,'aim')"><span>Aim Assist</span><div class="toggle"></div></div>
+  <div class="option" onclick="toggle(this,'sens')"><span>Sensibilidade</span><div class="toggle"></div></div>
+  <div class="option" onclick="toggle(this,'rec')"><span>Controle de Recuo</span><div class="toggle"></div></div>
+  <div class="status-bar"><span class="status-indicator"></span><span id="status">Sistema Pronto</span></div>
+  <button onclick="aplicar()">Aplicar Configurações</button>
+  <button onclick="abrirFF()">Abrir Free Fire</button>
+  <button class="secondary" onclick="sair()">Sair</button>
+</div>
+
+<div class="card hidden" id="owner">
+  <div class="avatar"><img src="avatar.jpg" alt="Avatar"></div>
+  <h3>Gerenciar Acessos <span class="badge owner">DONO</span></h3>
+  <div style="margin-bottom:15px">
+    <button onclick="showPend()">Pendentes <span class="pending-count" id="pCount">0</span></button>
+    <button class="secondary" onclick="showAprov()">Aprovados</button>
+  </div>
+  <div id="pList"></div>
+  <div id="aList" class="hidden"></div>
+  <button class="secondary" onclick="voltar()">Voltar ao Painel</button>
+</div>
+
+<script>
+const CFG={owner:'lheriquer21@gmail.com',clicks:0,user:null,s:{aim:0,sens:0,rec:0}};
+function login(){
+  let e=document.getElementById('emailInput').value.trim().toLowerCase();
+  if(!e){alert('Digite seu email!');return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){alert('Email inválido!');return}
+  if(e===CFG.owner){
+    CFG.user={email:e,role:'owner',at:Date.now()};
+    save();alert('Bem-vindo DONO! 👑');show();return
+  }
+  let u=getU().find(x=>x.email===e);
+  if(u){
+    if(u.exp&&new Date(u.exp)<new Date()){alert('Acesso expirado!');return}
+    CFG.user=u;save();show()
+  }else{
+    let p=getP();
+    if(p.find(x=>x.email===e)){alert('Solicitação pendente!');return}
+    p.push({email:e,at:Date.now()});
+    localStorage.setItem('p',JSON.stringify(p));
+    alert('Solicitação enviada! ✅');
+    document.getElementById('emailInput').value=''
+  }
+}
+function show(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('panel').classList.remove('hidden');
+  let t='Painel';
+  if(CFG.user.role==='owner')t+=' <span class="badge owner">DONO</span>';
+  else if(CFG.user.role==='admin')t+=' <span class="badge admin">ADMIN</span>';
+  document.getElementById('panelTitle').innerHTML=t
+}
+function checkOwner(){
+  if(CFG.user&&CFG.user.role==='owner'){
+    CFG.clicks++;
+    if(CFG.clicks>=5){CFG.clicks=0;showOwn()}
+  }
+}
+function showOwn(){
+  document.getElementById('panel').classList.add('hidden');
+  document.getElementById('owner').classList.remove('hidden');
+  showPend()
+}
+function showPend(){
+  let p=getP(),c=p.length;
+  document.getElementById('pCount').textContent=c;
+  document.getElementById('pList').classList.remove('hidden');
+  document.getElementById('aList').classList.add('hidden');
+  if(c===0){document.getElementById('pList').innerHTML='<div class="info-text">Nenhuma solicitação</div>';return}
+  let h='';
+  p.forEach((u,i)=>{
+    let d=new Date(u.at).toLocaleString('pt-BR');
+    h+=`<div class="user-item">
+      <div class="user-email">${u.email}</div>
+      <div class="user-info">Em: ${d}</div>
+      <select id="r${i}"><option value="user">Usuário</option><option value="admin">Admin</option></select>
+      <select id="d${i}"><option value="1">1 dia</option><option value="7">7 dias</option><option value="30">30 dias</option><option value="365">1 ano</option><option value="99999">Permanente</option></select>
+      <div class="user-actions">
+        <button onclick="aprov('${u.email}',${i})">Aprovar</button>
+        <button class="secondary" onclick="reject('${u.email}')">Rejeitar</button>
+      </div>
+    </div>`
+  });
+  document.getElementById('pList').innerHTML=h
+}
+function showAprov(){
+  let u=getU();
+  document.getElementById('pList').classList.add('hidden');
+  document.getElementById('aList').classList.remove('hidden');
+  if(u.length===0){document.getElementById('aList').innerHTML='<div class="info-text">Nenhum aprovado</div>';return}
+  let h='';
+  u.forEach(x=>{
+    let d=new Date(x.at).toLocaleString('pt-BR'),e='';
+    if(x.exp){
+      let de=new Date(x.exp);
+      e=de<new Date()?'<span class="expired-tag">EXPIRADO</span>':'<span class="approved-tag">'+de.toLocaleDateString('pt-BR')+'</span>'
+    }else e='<span class="approved-tag">PERMANENTE</span>';
+    let r=x.role==='admin'?'Admin':'Usuário';
+    h+=`<div class="user-item">
+      <div class="user-email">${x.email} <span class="badge ${x.role}">${r}</span></div>
+      <div class="user-info">Em: ${d} ${e}</div>
+      <div class="user-actions"><button class="secondary" onclick="rem('${x.email}')">Remover</button></div>
+    </div>`
+  });
+  document.getElementById('aList').innerHTML=h
+}
+function aprov(e,i){
+  let r=document.getElementById('r'+i).value,ds=parseInt(document.getElementById('d'+i).value);
+  let u=getU(),exp=ds===99999?null:new Date(Date.now()+ds*864e5).toISOString();
+  u.push({email:e,role:r,at:new Date().toISOString(),exp:exp});
+  localStorage.setItem('u',JSON.stringify(u));
+  let p=getP().filter(x=>x.email!==e);
+  localStorage.setItem('p',JSON.stringify(p));
+  alert(`✅ ${e} aprovado!`);showPend()
+}
+function reject(e){
+  if(!confirm('Rejeitar '+e+'?'))return;
+  let p=getP().filter(x=>x.email!==e);
+  localStorage.setItem('p',JSON.stringify(p));
+  alert('Rejeitado!');showPend()
+}
+function rem(e){
+  if(!confirm('Remover '+e+'?'))return;
+  let u=getU().filter(x=>x.email!==e);
+  localStorage.setItem('u',JSON.stringify(u));
+  alert('Removido!');showAprov()
+}
+function voltar(){
+  document.getElementById('owner').classList.add('hidden');
+  document.getElementById('panel').classList.remove('hidden')
+}
+function toggle(el,k){
+  let t=el.querySelector('.toggle');
+  t.classList.toggle('active');
+  CFG.s[k]=t.classList.contains('active');
+  let n={aim:'Aim Assist',sens:'Sensibilidade',rec:'Controle de Recuo'};
+  document.getElementById('status').textContent=n[k]+' '+(CFG.s[k]?'ON ✅':'OFF ❌')
+}
+function aplicar(){
+  if(!CFG.s.aim&&!CFG.s.sens&&!CFG.s.rec){alert('Ative algo!');return}
+  document.getElementById('status').textContent='Aplicando...';
+  setTimeout(()=>{alert('✅ Aplicado!');document.getElementById('status').textContent='Aplicado!';if(navigator.vibrate)navigator.vibrate(200)},1500)
+}
+function abrirFF(){
+  let p='com.dts.freefireth';
+  window.location.href=`intent://${p}#Intent;scheme=android-app;package=${p};end`;
+  setTimeout(()=>window.open(`https://play.google.com/store/apps/details?id=${p}`,'_blank'),2000)
+}
+function instalar(){
+  if(window.matchMedia('(display-mode: standalone)').matches){alert('Já instalado!');return}
+  if(/iPad|iPhone|iPod/.test(navigator.userAgent))alert('iOS: Compartilhar > Adicionar à Tela');
+  else if(/Android/.test(navigator.userAgent))alert('Android: Menu > Instalar app');
+  else alert('Clique no ícone de instalação')
+}
+function sair(){
+  if(confirm('Sair?')){
+    localStorage.removeItem('cu');CFG.user=null;
+    document.getElementById('panel').classList.add('hidden');
+    document.getElementById('owner').classList.add('hidden');
+    document.getElementById('login').classList.remove('hidden');
+    document.getElementById('emailInput').value=''
+  }
+}
+function getU(){return JSON.parse(localStorage.getItem('u')||'[]')}
+function getP(){return JSON.parse(localStorage.getItem('p')||'[]')}
+function save(){localStorage.setItem('cu',JSON.stringify(CFG.user))}
+window.onload=()=>{
+  let s=localStorage.getItem('cu');
+  if(s){
+    CFG.user=JSON.parse(s);
+    if(CFG.user.exp&&new Date(CFG.user.exp)<new Date()){alert('Expirado!');sair();return}
+    show()
+  }
+};
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+</script>
+</body>
+</html>
